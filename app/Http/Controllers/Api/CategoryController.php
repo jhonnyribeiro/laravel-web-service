@@ -34,6 +34,7 @@ class CategoryController extends Controller
         return response()->json($category);
     }
 
+
     public function store(StoreUpdateCategoryFormRequest $request)
     {
         $catgory = $this->category->create($request->all());
