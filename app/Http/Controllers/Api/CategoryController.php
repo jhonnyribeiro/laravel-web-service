@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\StoreUpdateCategoryFormRequest;
 use App\Models\Category;
 use Illuminate\Http\Request;
 
@@ -22,18 +23,18 @@ class CategoryController extends Controller
         return response()->json($categories, 200);
     }
 
-    public function store(Request $request)
+    public function store(StoreUpdateCategoryFormRequest $request)
     {
         $catgory = $this->category->create($request->all());
 
         return response()->json($catgory, 201);
     }
 
-    public function update(Request $request, $id)
+    public function update(StoreUpdateCategoryFormRequest $request, $id)
     {
         $category = $this->category->find($id);
 
-        if(!$category){
+        if (!$category) {
             return response()->json(['error' => 'Not found'], 404);
         }
 
