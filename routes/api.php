@@ -16,3 +16,5 @@ Route::resource('categories', 'Api\CategoryController', [
 
 ]);
 
+Route::resource('products', 'Api\ProductController');
+
