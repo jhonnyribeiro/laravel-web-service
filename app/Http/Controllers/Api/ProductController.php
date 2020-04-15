@@ -56,7 +56,12 @@ class ProductController extends Controller
      */
     public function show($id)
     {
-        //
+        $product = $this->product->find($id);
+        if (!$product) {
+            return response()->json(['error' => 'Produto não encontrado'], 404);
+        }
+
+        return response()->json($product);
     }
 
 
