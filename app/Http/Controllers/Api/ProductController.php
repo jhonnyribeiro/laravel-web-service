@@ -142,6 +142,11 @@ class ProductController extends Controller
             return response()->json(['error' => 'Produto não encontrado'], 404);
         }
 
+        if ($product->image) {
+            if (Storage::exists("{$this->path}/{$product->image}")) {
+                Storage::delete("{$this->path}/{$product->image}");
+            }
+        }
         $product->delete();
 
         return response()->json(['success' => true], 204);
