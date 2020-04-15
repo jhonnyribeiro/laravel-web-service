@@ -5,13 +5,16 @@ namespace App\Http\Controllers\Api;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreUpdateProductFormRequest;
 use App\Models\Product;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
+
 class ProductController extends Controller
 {
     /**
      * @var Product
      */
     private $product, $totalPage = 10;
+    private $path = 'products';
 
     /**
      * ProductController constructor.
@@ -53,7 +56,7 @@ class ProductController extends Controller
             $nameFile = "{$name}.{$extension}";
             $data['image'] = $nameFile;
 
-            $upload = $request->image->storeAs('products', $nameFile);
+            $upload = $request->image->storeAs($this->path, $nameFile);
             if (!$upload) {
                 return response()->json(['error' => 'Não foi possível realizar o upload da imagem'], 500);
             }
@@ -96,7 +99,29 @@ class ProductController extends Controller
             return response()->json(['error' => 'Produto não encontrado'], 404);
         }
 
-        $product->update($request->all());
+        $data = $request->all();
+
+        if ($request->hasFile('image') && $request->file('image')->isValid()) {
+
+            if ($product->image) {
+                if (Storage::exists("{$this->path}/{$product->image}")) {
+                    Storage::delete("{$this->path}/{$product->image}");
+                }
+            }
+
+            $name = Str::kebab($request->name);
+            $extension = $request->image->extension();
+
+            $nameFile = "{$name}.{$extension}";
+            $data['image'] = $nameFile;
+
+            $upload = $request->image->storeAs('products', $nameFile);
+            if (!$upload) {
+                return response()->json(['error' => 'Não foi possível realizar o upload da imagem'], 500);
+            }
+        }
+
+        $product->update($data);
 
         return response()->json($product, 200);
     }
@@ -107,8 +132,10 @@ class ProductController extends Controller
      * @param int $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
-    {
+    public
+    function destroy(
+        $id
+    ) {
         $product = $this->product->find($id);
 
         if (!$product) {
