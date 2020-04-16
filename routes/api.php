@@ -10,11 +10,18 @@ use Illuminate\Support\Facades\Route;
  * Route::delete('/categories/{id}', 'Api\CategoryController@delete');
  */
 
+Route::prefix('v1')->group(function () {
 
-Route::resource('categories', 'Api\CategoryController', [
-    'except' => ['edit', 'create']
-]);
+    Route::namespace('Api\v1')->group(function () {
 
-Route::resource('products', 'Api\ProductController');
+        Route::resource('categories', 'CategoryController', [
+            'except' => ['edit', 'create']
+        ]);
 
-Route::get('categories/{id}/products', 'Api\CategoryController@products');
+        Route::resource('products', 'ProductController');
+
+        Route::get('categories/{id}/products', 'CategoryController@products');
+
+    });
+
+});
