@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Cors</title>
+</head>
+<body>
+
+<button onclick="sendAjax()">Enviar</button>
+
+<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+<script>
+    function sendAjax() {
+        axios.get('http://127.0.0.1:8000/api/v1/products')
+        .then(response => {
+            console.log(response)
+        })
+        .catch(error =>{
+            alert('Falhou')
+            console.log(error)
+        })
+    }
+</script>
+
+</body>
+</html>
