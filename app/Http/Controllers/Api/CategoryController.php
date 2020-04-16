@@ -9,7 +9,7 @@ use Illuminate\Http\Request;
 
 class CategoryController extends Controller
 {
-    private $category;
+    private $category, $totalPage = 10;
 
     public function __construct(Category $category)
     {
@@ -67,6 +67,24 @@ class CategoryController extends Controller
 
         return response()->json(['success' => true], 204);
 
+    }
 
+    public function products($id)
+    {
+//        $category = $this->category->with(['products'])->find($id);
+        $category = $this->category->find($id);
+
+        if (!$category) {
+            return response()->json(['error' => 'Not found'], 404);
+        }
+
+        $products = $category->products()->paginate($this->totalPage);
+//        $products = $category->products();
+
+
+        return response()->json([
+            'category' => $category,
+            'products' => $products,
+        ]);
     }
 }

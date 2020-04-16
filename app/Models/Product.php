@@ -33,4 +33,9 @@ class Product extends Model
             ->paginate($total); //toSql() com um dd()
 
     }
+
+    public function category()
+    {
+        return $this->belongsTo(Category::class);
+    }
 }
