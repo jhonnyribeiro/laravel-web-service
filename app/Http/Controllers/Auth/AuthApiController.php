@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use JWTAuth;
 use Tymon\JWTAuth\Exceptions\JWTException;
+use Tymon\JWTAuth\Exceptions\TokenInvalidException;
 
 class AuthApiController extends Controller
 {
@@ -59,5 +60,23 @@ class AuthApiController extends Controller
 
         // the token is valid and we have found the user via the sub claim
         return response()->json(compact('user'));
+    }
+
+    public function refreshToken()
+    {
+        $token = JWTAuth::getToken();
+
+        if (!$token) {
+            return response()->json(['error' => 'token-not_send']);
+        }
+
+        try {
+            $token = JWTAuth::refresh();
+        } catch (TokenInvalidException $exception) {
+            return response()->json(['token_invalid'], $exception->getStatusCode());
+        }
+
+        return response()->json(compact('token'));
+
     }
 }
