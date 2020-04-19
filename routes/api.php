@@ -10,6 +10,8 @@ use Illuminate\Support\Facades\Route;
  * Route::delete('/categories/{id}', 'Api\CategoryController@delete');
  */
 
+Route::post('auth', 'Auth\AuthApiController@authenticate');
+
 Route::prefix('v1')->group(function () {
 
     Route::namespace('Api\v1')->group(function () {
