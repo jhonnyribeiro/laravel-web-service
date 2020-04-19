@@ -11,6 +11,7 @@ use Illuminate\Support\Facades\Route;
  */
 
 Route::post('auth', 'Auth\AuthApiController@authenticate');
+Route::get('me', 'Auth\AuthApiController@getAuthenticatedUser');
 
 Route::prefix('v1')->group(function () {
 
