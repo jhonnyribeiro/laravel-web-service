@@ -39,7 +39,7 @@ return [
     |
     */
 
-    'debug' => (bool) env('APP_DEBUG', false),
+    'debug' => (bool)env('APP_DEBUG', false),
 
     /*
     |--------------------------------------------------------------------------
@@ -175,6 +175,15 @@ return [
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
 
+
+        /**
+         * JWT Provider
+         * https://github.com/tymondesigns/jwt-auth
+         * https://jwt-auth.readthedocs.io/en/develop/laravel-installation/
+         */
+
+        Tymon\JWTAuth\Providers\LaravelServiceProvider::class,
+
     ],
 
     /*
@@ -226,6 +235,21 @@ return [
         'URL' => Illuminate\Support\Facades\URL::class,
         'Validator' => Illuminate\Support\Facades\Validator::class,
         'View' => Illuminate\Support\Facades\View::class,
+
+        /**
+         * JWT Provider alias
+         * https://github.com/tymondesigns/jwt-auth
+         * https://jwt-auth.readthedocs.io/en/develop/laravel-installation/
+         *
+         * Rodar
+         *
+         * php artisan vendor:publish --provider="Tymon\JWTAuth\Providers\LaravelServiceProvider"
+         *
+         * php artisan jwt:secret
+         * depois dessa configuração
+         */
+
+        'JWTAuth' => Tymon\JWTAuth\Facades\JWTAuth::class,
 
     ],
 
