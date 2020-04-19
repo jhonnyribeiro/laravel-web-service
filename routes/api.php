@@ -16,16 +16,19 @@ Route::get('me', 'Auth\AuthApiController@getAuthenticatedUser');
 
 Route::prefix('v1')->group(function () {
 
-    Route::namespace('Api\v1')->group(function () {
+    Route::namespace('Api\v1')
+//        ->middleware('jwt.auth')
+        ->middleware('auth:api')
+        ->group(function () {
 
-        Route::resource('categories', 'CategoryController', [
-            'except' => ['edit', 'create']
-        ]);
+            Route::resource('categories', 'CategoryController', [
+                'except' => ['edit', 'create']
+            ]);
 
-        Route::resource('products', 'ProductController');
+            Route::resource('products', 'ProductController');
 
-        Route::get('categories/{id}/products', 'CategoryController@products');
+            Route::get('categories/{id}/products', 'CategoryController@products');
 
-    });
+        });
 
 });

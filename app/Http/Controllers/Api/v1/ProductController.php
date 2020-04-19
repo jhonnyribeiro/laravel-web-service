@@ -7,6 +7,7 @@ use App\Http\Requests\StoreUpdateProductFormRequest;
 use App\Models\Product;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
+use Illuminate\Http\Request;
 
 class ProductController extends Controller
 {
@@ -30,7 +31,7 @@ class ProductController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index(StoreUpdateProductFormRequest $request)
+    public function index(Request $request)
     {
         $products = $this->product->getResults($request->all(), $this->totalPage);
 
