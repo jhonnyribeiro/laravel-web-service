@@ -1,6 +1,6 @@
 <template>
     <div>
-        <h1>Sou um component Vue JS =D</h1>
+        <h1>Sou um component VueJS sync =D</h1>
     </div>
 </template>
 

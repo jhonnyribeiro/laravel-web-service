@@ -19524,7 +19524,7 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("div", [_c("h1", [_vm._v("Sou um component Vue JS =D")])])
+    return _c("div", [_c("h1", [_vm._v("Sou um component VueJS sync =D")])])
   }
 ]
 render._withStripped = true
